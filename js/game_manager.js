@@ -68,12 +68,26 @@ GameManager.prototype.addStartTiles = function () {
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
-    var value = (int)(Math.pow(2,Math.randNorm()));
-    //var value 
+    //var value = Math.pow(2,Math.abs(Math.round(1.4*normRand()))+2);
+    var value = Math.random()<0.9?4:8;
     var tile = new Tile(this.grid.randomAvailableCell(), value);
 
     this.grid.insertTile(tile);
   }
+};
+
+function normRand() {
+    var x1, x2, rad;
+ 
+    do {
+        x1 = 2 * Math.random() - 1;
+        x2 = 2 * Math.random() - 1;
+        rad = x1 * x1 + x2 * x2;
+    } while(rad >= 1 || rad == 0);
+ 
+    var c = Math.sqrt(-2 * Math.log(rad) / rad);
+ 
+    return x1 * c;
 };
 
 // Sends the updated grid to the actuator
